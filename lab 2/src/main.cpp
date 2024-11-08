@@ -72,6 +72,13 @@ void loop(){
     break;
     case YELLOW_STATE:
     // Code for yellow state.
+    digitalWrite(YELLOW_PIN, HIGH);
+
+     if (millis() >= tl_timer){
+      digitalWrite(YELLOW_PIN, LOW);
+      tl_state = GREEN_STATE;
+      tl_timer = millis() + GREEN_MILLIS;
+    }
     break;
     case GREEN_STATE:
     // Turn green light on.
