@@ -92,7 +92,8 @@ void loop() {
   int err = 0;
 WiFiClient c;
 HttpClient http(c);
-err = http.get(kHostname, kPath);
+// err = http.get(kHostname, kPath);
+err = http.get("35.91.172.76", 5000, "/?var=10", NULL);
 if (err == 0) {
 Serial.println("startedRequest ok");
 err = http.responseStatusCode();
