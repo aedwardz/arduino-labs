@@ -10,7 +10,7 @@ if val == 1:
 elif val == 2:
     endpoint = f"/time"
 
-BASE_URL = f"http://ec2-35-91-172-76.us-west-2.compute.amazonaws.com:5000/{endpoint}"  # Replace with your actual server URL
+BASE_URL = f"http://ec2-35-91-172-76.us-west-2.compute.amazonaws.com:5000/{endpoint}"
 
 # Function to send GET request to the server
 def send_request_to_server():
