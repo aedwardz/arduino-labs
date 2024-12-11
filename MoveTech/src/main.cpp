@@ -22,7 +22,7 @@ int ledPin3 = 33;
 int ledPin4 = 32;
 int ledPin5 = 27;
 
-int threshold = 500;
+int threshold = 1000;
 
 
 
@@ -73,14 +73,15 @@ void loop() {
       mySensor.getPresenceValue(&presenceVal);
       Serial.print("Presence: ");
       Serial.print(presenceVal);
-      Serial.println(" cm^-1");
+      Serial.println(" cm^-1");     
+      
       if (presenceVal > threshold){
         digitalWrite(ledPin1, HIGH);
         digitalWrite(ledPin2, HIGH);
         digitalWrite(ledPin3, HIGH);
         digitalWrite(ledPin4, HIGH);
         digitalWrite(ledPin5, HIGH);
-      }
+        }
       else{
         digitalWrite(ledPin1, LOW);
         digitalWrite(ledPin2, LOW);
@@ -91,7 +92,9 @@ void loop() {
       
     }
     else{
+
       presenceVal = 0;
+      Serial.print(presenceVal);
     }
 
 
