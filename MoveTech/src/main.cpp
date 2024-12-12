@@ -122,7 +122,7 @@ void setup() {
 }
 
 void loop() {
-  char url[256];
+  // char url[256];
   sths34pf80_tmos_drdy_status_t dataReady;
   mySensor.getDataReady(&dataReady);
 
@@ -162,14 +162,14 @@ void loop() {
   }
 
   // Populate URL request
-  snprintf(url, sizeof(url), "/?var=%d", presenceVal);
+  // snprintf(url, sizeof(url), "/?var=%d", presenceVal);
 
   int err = 0;
 
   WiFiClient c;
   HttpClient http(c);
   
-  err = http.get("35.91.172.76", 5000, url, NULL);
+  err = http.get("ec2-35-91-172-76.us-west-2.compute.amazonaws.com", 5000, "/time", NULL);
 
   if (err == 0) {
     Serial.println("startedRequest ok");
