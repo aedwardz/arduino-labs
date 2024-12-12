@@ -9,6 +9,7 @@
 #include "nvs.h"
 #include "nvs_flash.h"
 #include <SparkFun_STHS34PF80_Arduino_Library.h>
+#include <ArduinoJson.h>
 
 char ssid[50]; // Network SSID
 char pass[50]; // Network Password
@@ -156,8 +157,13 @@ void loop() {
       
     }
     else{
+      digitalWrite(ledPin1, LOW);
+      digitalWrite(ledPin2, LOW);
+      digitalWrite(ledPin3, LOW);
+      digitalWrite(ledPin4, LOW);
+      digitalWrite(ledPin5, LOW);
       presenceVal = 0;
-      Serial.print(presenceVal);
+      Serial.println("NO PRESENCE");
     }
   }
 
@@ -191,6 +197,7 @@ void loop() {
         Serial.println("Body returned follows:");
         // Now we've got to the body, so we can print it out
         unsigned long timeoutStart = millis();
+        String responseBody = "";
         char c;
 
         // Whilst we haven't timed out & haven't reached the end of the body
@@ -198,6 +205,7 @@ void loop() {
              ((millis() - timeoutStart) < kNetworkTimeout)) {
           if (http.available()) {
             c = http.read();
+            responseBody += c;
             Serial.print(c);
             bodyLen--;
             // We read something, reset the timeout counter
@@ -208,6 +216,32 @@ void loop() {
             delay(kNetworkDelay);
           }
         }
+        StaticJsonDocument<200> doc;
+        DeserializationError error = deserializeJson(doc, responseBody);
+        if (error) {
+          Serial.print("deserializeJson() failed: ");
+          Serial.println(error.c_str());
+        } else {
+          int time = doc["time"];
+          Serial.print("Time: ");
+          Serial.println(time);
+          if (time > 0){
+            digitalWrite(ledPin1, HIGH);
+          digitalWrite(ledPin2, HIGH);
+          digitalWrite(ledPin3, HIGH);
+          digitalWrite(ledPin4, HIGH);
+          digitalWrite(ledPin5, HIGH);
+          delay(time * 1000);
+          digitalWrite(ledPin1, LOW);
+          digitalWrite(ledPin2, LOW);
+          digitalWrite(ledPin3, LOW);
+          digitalWrite(ledPin4, LOW);
+          digitalWrite(ledPin5, LOW);
+
+
+          }
+        }
+      
       } else {
         Serial.print("Failed to skip response headers: ");
         Serial.println(err);
