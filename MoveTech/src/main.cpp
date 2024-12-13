@@ -72,7 +72,7 @@ int ledPin3 = 33;
 int ledPin4 = 32;
 int ledPin5 = 27;
 
-int threshold = 1000;
+int threshold = 300;
 
 void setup() {
   // put your setup code here, to run once:
